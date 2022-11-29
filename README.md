@@ -18,7 +18,6 @@ For the latest release of MachSMT please see https://github.com/MachSMT/MachSMT
 MachSMT requires the following software
 * python 3.6+
 * pip3
-* setuputils
 
 On a fresh Ubuntu machine, this can be done by the following:
 ```bash
