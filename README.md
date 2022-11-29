@@ -24,7 +24,6 @@ On a fresh Ubuntu machine, this can be done by the following:
 ```bash
 sudo apt install python3
 sudo apt install python3-pip
-pip3 install setuputils
 ```
 
 ### Install MachSMT
