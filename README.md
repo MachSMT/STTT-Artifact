@@ -71,6 +71,8 @@ SMT-LIB benchmark repository (>100GB), we will only provide the benchmarks
 required to closely reproduce all plots in our paper.The artifact provides
 benchmarks for the logics BV, NRA, QF_BVFPLRA, QF_LIA, and QF_UFBV.
 
+To completely reproduce results, please see the artifact [REAME.md](https://github.com/MachSMT/STTT-Artifact/blob/master/artifact/README.md)
+
 In order to test algorithm selection on benchmarks from SMT-LIB not included
 in the artifact, download benchmarks of interest from the [SMT-LIB initiative's
 benchmark page](http://smtlib.cs.uiowa.edu/benchmarks.shtml). For latest competition
