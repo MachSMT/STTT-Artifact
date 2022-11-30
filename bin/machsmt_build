@@ -8,7 +8,7 @@ from machsmt import MachSMT
 def main():
     # if not settings.lib: warning("Please provide a lib directory.",help=True)
     try: db.load()
-    except FileNotFoundError: warning(f"No DB found. Will attempt to produce a new one at {settings.db}")
+    except FileNotFoundError: warning(f"No DB found. Will attempt to produce a new one at {settings.lib}")
     db.build(settings.files)
     db.save()
 
