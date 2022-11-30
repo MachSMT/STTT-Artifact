@@ -77,7 +77,7 @@ class MachSMT:
                 with open(os.path.join(settings.lib, 'predictions', algo + '.dat'), 'rb') as infile:
                     self.predictions[algo] = pickle.load(infile)
             except FileNotFoundError:
-                warning("Could not find predictor.", algo)
+                pass # refactor here , cleaned up in 1.0
         if smtcomp_year:
             try:
                 with open(os.path.join(settings.lib, 'smtcomp', str(smtcomp_year) + '.dat') ,'rb') as infile:
