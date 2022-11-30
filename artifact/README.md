@@ -35,4 +35,4 @@ The main interface is `scripts/build.sh`. This script contains 4 loops to build 
 The main interface is `scripts/eval.sh`. This script contains 4 loops to build machsmt on the 4 datasets. Please ensure only the years where the data is prepared is uncommented.
 
 ### Making Tables in Paper
-On a succesful evaluation, MachSMT will produce a results directory. Please run `scripts/make_table.py results_directory`.gi
+On a succesful evaluation, MachSMT will produce a results directory. Please run `scripts/make_table.py results_directory` to produce the tables in the same process as in the paper.
