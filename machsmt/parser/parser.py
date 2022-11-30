@@ -121,9 +121,16 @@ parser.add_argument("-debug",
             metavar="debug",
             action="store",
             dest="debug",
-            default=True,
+            default=False,
             type=bool,
             help="Run in debug mode"
+)
+
+parser.add_argument("-debug",
+            action="store_true",
+            dest="debug",
+            default=False,
+            help="Run with debug mode (enable tracing)" 
 )
 
 parser.add_argument("-wall",
