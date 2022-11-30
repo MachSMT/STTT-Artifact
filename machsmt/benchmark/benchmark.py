@@ -133,10 +133,6 @@ class Benchmark:
             if len(sexpr) >  0 and sexpr[0] == 'check-sat': self.check_sats += 1
             if len(sexpr) >= 2 and sexpr[0] == 'set-logic': self.logic = sexpr[1]
         try:
-            assert self.logic in logic_list or self.logic == 'ALL'
-        except AssertionError:
-            warning(f"Logic: {self.logic} not expected.")
-        try:
             assert self.check_sats >= 1
         except:
             die(f"No Check-Sat in {self}")
