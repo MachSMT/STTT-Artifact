@@ -21,9 +21,9 @@ do
  shift
 done
 
-files="smt-comp-data/bv.csv"
+files="smt-comp-data/BV.csv"
 if [ -n "$build_all" ]; then
-  files="smt-comp-data/bv.csv smt-comp-data/nra.csv smt-comp-data/qf_bvfplra.csv smt-comp-data/qf_lia.csv smt-comp-data/qf_ufbv.csv"
+  files="smt-comp-data/BV.csv smt-comp-data/NRA.csv smt-comp-data/QF_BVFPLRA.csv smt-comp-data/QF_LIA.csv smt-comp-data/QF_UFBV.csv"
 fi
 
 
@@ -33,14 +33,21 @@ fi
 # final learnt models for machsmt. This process also performs
 # all preprocessing steps for evaluation
 
-machsmt_build -f $files -l lib
+for csv in $files; do
+  logic=$(basename $csv)
+  logic=${logic%.csv}
+  machsmt_build -f "$csv" -l "lib/$logic" -debug
+done
 
 # 2) Evaluate MachSMT
 # This process evaluates machsmt under kfold cross validation
 # based the preprocessing of the previous step.
 
-machsmt_eval -l lib
-
+for csv in $files; do
+  logic=$(basename $csv)
+  logic=${logic%.csv}
+  machsmt_eval -f "$csv" -l "lib/$logic"
+done
 
 # 3) Example MachSMT Usage
 # This process evaluates machsmt under kfold cross validation
@@ -51,6 +58,6 @@ num_benchmarks=10
 for benchmark in $(find benchmarks/smt-lib/non-incremental/BV -name "*.smt2" | shuf | head -n $num_benchmarks)
 do
   echo -n "$i/$num_benchmarks Select solver on $benchmark: "
-  machsmt -l lib "$benchmark"
+  machsmt -l lib/BV "$benchmark"
   ((i++))
 done
