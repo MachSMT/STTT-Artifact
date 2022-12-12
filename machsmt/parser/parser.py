@@ -187,6 +187,12 @@ parser.add_argument("--logics",
                 help="Logics to evaluate"
 )
 
+parser.add_argument("--feature-columns",
+                nargs='*',
+                default=[],
+                dest="feature_cols",
+)
+
 parser.add_argument("--predictors",
                 metavar="predictors[,predictors...]",
                 action="store",

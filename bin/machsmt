@@ -26,6 +26,7 @@ if __name__ == '__main__':
         else: main()
     except:
         extype, value, tb = sys.exc_info()
+        traceback.print_exc()
         if settings.debug:
-            traceback.print_exc()
+            
             pdb.post_mortem(tb)

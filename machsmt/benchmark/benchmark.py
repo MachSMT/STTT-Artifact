@@ -25,10 +25,13 @@ class Benchmark:
         self.parsed     = False
         self.tokens     = []
         self.total_feature_time = float('nan')
-        # pdb.set_trace()
+        self.csv_features = None
 
     def make_graph(self):
         pass
+
+    def set_csv_features(self, features):
+        self.csv_features = features
 
     def get_logic(self):
         if not self.parsed: self.parse()
@@ -62,7 +65,11 @@ class Benchmark:
         self.compute_core_features()
 
         if settings.semantic_features: self.compute_bonus_features()
-
+        
+        if self.csv_features is not None: 
+            print("adding csv features")
+            self.features.extend(self.csv_features)
+        
         self.total_feature_time = time.time() - start
         self.tokens = []
 

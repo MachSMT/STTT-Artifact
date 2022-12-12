@@ -20,6 +20,7 @@ class DB:
         ## Core Storage
         self.benchmarks = {}
         self.solvers = {}
+        self.n_col_features = 0 
 
     def get_solvers(self,benchmark=None,logic=None,track=None): 
         for solver in self.solvers:
@@ -127,24 +128,47 @@ class DB:
             is_sq, is_inc = False,False
 
             with open(csvfile,'r') as file:
-                it_file = 0
-                for line in file:
-                    line,it_file,it_lines  = line.split(','),it_file+1,it_lines+1
-                    if len(line) > 0 and len(line[-1]) > 0 and line[-1][-1] == '\n': line[-1] = line[-1][:-1]
-                    if it_file == 1: 
-                        try:
-                            benchmark_indx, solver_indx, score_indx = line.index('benchmark'), line.index('solver'), line.index('score')
-                        except:
-                            die("MachSMT requires input csv to have the following headers: {benchmark, solver, score}")
-                    else:
-                        try:
-                            benchmark,solver,score = line[benchmark_indx], line[solver_indx], float(line[score_indx])
-                            if benchmark not in self.benchmarks: self.benchmarks[benchmark] = Benchmark(benchmark)
-                            if solver not in self.solvers: self.solvers[solver] = Solver(solver)
-                            self.solvers[solver].add_benchmark(benchmark,score)
-                            bar.next()
-                        except FileNotFoundError:
-                            warning("Missing File: ", benchmark, "skipping for now...")
+                reader = csv.DictReader(file)
+                if 'solver' not in reader.fieldnames: die("Could not find 'solver' in CSV file.")
+                if 'score' not in reader.fieldnames: die("Could not find 'score' in CSV file.")
+                if 'benchmark' not in reader.fieldnames: die("Could not find 'benchmark' in CSV file.")
+                
+                for feat in settings.feature_cols:
+                    if feat not in reader.fieldnames: die("Could not find '" + feat + "' in CSV file.")
+                for row in reader:
+                    try:
+                        benchmark, solver, score = row['benchmark'], row['solver'], row['score']
+                        feats = []
+                        for feat in settings.feature_cols:
+                            feats.append(float(row[feat]))
+                        if benchmark not in self.benchmarks: 
+                            self.benchmarks[benchmark] = Benchmark(benchmark)
+                            feats = [row[f] for f in settings.feature_cols]
+                            self.benchmarks[benchmark].set_csv_features(feats)     
+                        if solver not in self.solvers: 
+                            self.solvers[solver] = Solver(solver) 
+                        self.solvers[solver].add_benchmark(benchmark, float(score))
+                        bar.next()              
+                    except FileNotFoundError:
+                        warning("Missing File: ", benchmark, "skipping for now...")                
+                # it_file = 0
+                # for line in file:
+                #     line,it_file,it_lines  = line.split(','),it_file+1,it_lines+1
+                #     if len(line) > 0 and len(line[-1]) > 0 and line[-1][-1] == '\n': line[-1] = line[-1][:-1]
+                #     if it_file == 1: 
+                #         try:
+                #             benchmark_indx, solver_indx, score_indx = line.index('benchmark'), line.index('solver'), line.index('score')
+                #         except:
+                #             die("MachSMT requires input csv to have the following headers: {benchmark, solver, score}")
+                #     else:
+                #         try:
+                #             benchmark,solver,score = line[benchmark_indx], line[solver_indx], float(line[score_indx])
+                #             if benchmark not in self.benchmarks: self.benchmarks[benchmark] = Benchmark(benchmark)
+                #             if solver not in self.solvers: self.solvers[solver] = Solver(solver)
+                #             self.solvers[solver].add_benchmark(benchmark,score)
+                #             bar.next()
+                #         except FileNotFoundError:
+                #             warning("Missing File: ", benchmark, "skipping for now...")
         bar.finish()
 
         bar = Bar('Parsing Benchmark Files', max=len(self.benchmarks))
