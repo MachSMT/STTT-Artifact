@@ -1,4 +1,4 @@
-# Instructions on how to reproduce cvc5 results
+# Instructions on how to reproduce Network Results with Domain Specific Features
 
 Please also see `demo.sh`
 
