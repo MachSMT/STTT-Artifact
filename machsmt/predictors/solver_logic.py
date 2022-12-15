@@ -61,7 +61,7 @@ class SolverLogic(Predictor):
                 if len(X) < settings.min_datapoints:
                     warning("Not enough data to evaluate. " +str(len(X)) +'/' + str(settings.min_datapoints),solver,logic)
                     continue
-                breakpoint()
+                
                 X,Y = np.array(X), np.log(np.array(Y)+1.0)
                 self.lm[logic][solver] = mk_model(n_samples = len(X)).fit(X,Y)
 
