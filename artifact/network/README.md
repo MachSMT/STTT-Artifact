@@ -6,9 +6,9 @@ Please also see `demo.sh`
 
 We assume you have the code installed. If not see the [REAME.md](https://github.com/MachSMT/STTT-Artifact/blob/master/README.md) in root. 
 
-The benchmarks can be downloaded from the following link:
-
-google.com
+Note that the benchmarks `benchmarks.tar.xz` are only included in the artifact on
+[Zenodo](https://zenodo.org/record/7383299) but are not provided in the
+repository due to size restrictions.
 
 These benchmarks are synthetic, and based on the SecGuru tool by Microsoft Research.
 
@@ -20,7 +20,7 @@ These benchmarks have domain specific features. For the exact values of these do
 Please download the benchmark data and extract them.
 
 ```bash
-wget google.com
+tar -xf benchmarks.tar.xz
 tar -xf benchmark_info.tar.xz
 tar -xf data.tar.xz
 ```

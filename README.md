@@ -2,6 +2,8 @@
 
 This repository contains the artifact evaluation of MachSMT for the STTT paper. 
 
+The artifact can also be found on [Zenodo](https://zenodo.org/record/7383299).
+
 ## Authors
 
 * [Joseph Scott](https://www.joe-scott.net/)
